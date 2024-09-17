@@ -7,7 +7,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="App">
-        <main className="container mx-auto mb-8 mt-[10vh]">
+        <main className="">
           <Routes>
             <Route path="/" element={<Login />} />
           </Routes>
