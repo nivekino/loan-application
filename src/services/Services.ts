@@ -19,3 +19,47 @@ export const loginUser = async (data: {
     throw new Error("Error desconocido");
   }
 };
+
+export const getAllCredits = async (token: string) => {
+  try {
+    const response = await axios.get(`${baseUrl}/credits`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const credits = response.data;
+
+    return credits;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error en la solicitud:", error.response?.data);
+      throw new Error(
+        error.response?.data.message || "Error al obtener los créditos"
+      );
+    }
+    throw new Error("Error desconocido");
+  }
+};
+
+export const getCreditById = async (token: string, id: string) => {
+  try {
+    const response = await axios.get(`${baseUrl}/credits/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const credits = response.data;
+
+    return credits;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error en la solicitud:", error.response?.data);
+      throw new Error(
+        error.response?.data.message || "Error al obtener los créditos"
+      );
+    }
+    throw new Error("Error desconocido");
+  }
+};

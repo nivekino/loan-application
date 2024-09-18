@@ -19,7 +19,7 @@ const App: React.FC = () => {
               element={
                 <>
                   <Navbar />
-                  <main className="container mx-auto mb-8 mt-[10vh]">
+                  <main className="mx-auto mb-8 mt-[10vh]">
                     <Dashboard />
                   </main>
                 </>

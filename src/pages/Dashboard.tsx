@@ -1,9 +1,9 @@
-import { Typography } from "@mui/material";
+import DashboardContainer from "../containers/DashboardContainer";
 
 const Dashboard: React.FC = () => {
   return (
     <div>
-      <Typography variant="h4">Dashboard</Typography>
+      <DashboardContainer />
     </div>
   );
 };
