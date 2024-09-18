@@ -64,7 +64,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
             fontSize: "18px",
             fontWeight: "regular",
             transition: "color 0.3s",
-            mb: "-3px"
+            mb: "-3px",
           }}
         >
           {label}
@@ -88,6 +88,9 @@ export const CustomInput: React.FC<CustomInputProps> = ({
         sx={{
           "& .MuiInputBase-input": {
             color: colorInput,
+            height: "25px",
+            fontSize: "14px",
+            padding: "10px",
           },
           "& .MuiOutlinedInput-root": {
             "& fieldset": {

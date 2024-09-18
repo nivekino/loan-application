@@ -22,13 +22,15 @@ const LoginForm = () => {
   }) => {
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2500));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const response = await loginUser(values);
       login(response.token);
 
       toast.dismiss(errorToastId);
 
-      toast.success("Login exitoso");
+      toast.success("Inicio de sesión exitoso", {
+        position: "bottom-right",
+      });
       setLoading(false);
       navigate("/dashboard");
     } catch (error: unknown) {
@@ -37,6 +39,7 @@ const LoginForm = () => {
       if (!toast.isActive(errorToastId)) {
         toast.error(`${error}`, {
           toastId: errorToastId,
+          position: "bottom-right",
         });
       }
     }

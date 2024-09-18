@@ -1,13 +1,9 @@
-import { Typography, Button } from "@mui/material";
-import { useAuth } from "../context/useAuth";
+import { Typography } from "@mui/material";
 
 const Dashboard: React.FC = () => {
-  const { logout } = useAuth();
-
   return (
     <div>
       <Typography variant="h4">Dashboard</Typography>
-      <Button onClick={logout}>Cerrar sesión</Button>
     </div>
   );
 };
