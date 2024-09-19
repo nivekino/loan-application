@@ -24,38 +24,30 @@ export const validationSchemaCredit = Yup.object({
   tipoIdentificacion: Yup.string().required(
     "Tipo de identificación es un campo requerido"
   ),
-  numeroIdentificacion: Yup.string().when(
-    "tipoIdentificacion",
-    (tipoIdentificacion, schema) => {
-      if (typeof tipoIdentificacion !== "string") {
-        return schema;
-      }
+  numeroIdentificacion: Yup.lazy((_, options) => {
+    const { tipoIdentificacion } = options.parent;
 
-      if (tipoIdentificacion === "DUI") {
-        return schema
+    switch (tipoIdentificacion) {
+      case "DUI":
+        return Yup.string()
           .matches(/^\d{8}-\d{1}$/, "El DUI debe seguir el formato 00000000-0")
           .required("Número de identificación es requerido para DUI");
-      }
-
-      if (tipoIdentificacion === "NIT") {
-        return schema
+      case "NIT":
+        return Yup.string()
           .matches(
             /^\d{4}-\d{6}-\d{3}-\d{1}$/,
             "El NIT debe seguir el formato 0000-000000-000-0"
           )
           .required("Número de identificación es requerido para NIT");
-      }
-
-      if (tipoIdentificacion === "Pasaporte") {
-        return schema
+      case "Pasaporte":
+        return Yup.string()
           .matches(
             /^[a-zA-Z0-9]{9}$/,
             "El pasaporte debe tener 9 caracteres alfanuméricos"
           )
           .required("Número de identificación es requerido para pasaporte");
-      }
-      
-      return schema.required("Número de identificación es requerido");
+      default:
+        return Yup.string().required("Número de identificación es requerido");
     }
-  ),
+  }),
 });
