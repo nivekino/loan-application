@@ -17,13 +17,12 @@ const LoginContainer: React.FC = () => {
 
   const { stepStatus, setStepStatus } = useContext(AuthContext);
 
-  // ? useEffect para mostrar el formulario de registro
   const timeoutAnimation = (stepStatusParam: number): Promise<boolean> => {
     return new Promise((resolve) => {
       if (stepStatus === stepStatusParam) {
         setTimeout(() => {
           resolve(true);
-        }, 1000); // 1 segundo de espera
+        }, 1000);
       } else {
         resolve(false);
       }
@@ -37,15 +36,14 @@ const LoginContainer: React.FC = () => {
     };
 
     handleLoginAnimation();
-  }, [stepStatus]); // Solo cuando stepStatus cambie
-
-  // ? useEffect para mostrar la animación de la imagen de fondo
+  }, [stepStatus]);
+  
   useEffect(() => {
     if (stepStatus === 1) {
       const timer = setTimeout(() => {
         setShowSlide(true);
-      }, 1100); // 1 segundo de retraso y un poco mas por un error de parpadeo en la imagen grande
-      return () => clearTimeout(timer); // Limpiar el timeout cuando se desmonte
+      }, 1100);
+      return () => clearTimeout(timer);
     } else {
       setShowSlide(false);
     }
@@ -58,7 +56,7 @@ const LoginContainer: React.FC = () => {
 
   const handleGoBack = (): void => {
     setIsOptionSelected(false);
-    setStepStatus(1); // Volver a stepStatus 1
+    setStepStatus(1);
   };
 
   useEffect(() => {
@@ -148,7 +146,6 @@ const LoginContainer: React.FC = () => {
                   </Box>
                 </Fade>
 
-                {/* Mostrar RegisterForm cuando isRegisterVisible es true */}
                 <Fade in={isRegisterVisible} timeout={1000} unmountOnExit>
                   <Box
                     sx={{

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ICredit } from "../interfaces/Icredit";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -62,6 +63,21 @@ export const getCreditById = async (token: string, id: string) => {
       console.error("Error en la solicitud:", error.response?.data);
       throw new Error(
         error.response?.data.message || "Error al obtener los créditos"
+      );
+    }
+    throw new Error("Error desconocido");
+  }
+};
+
+export const createCredit = async (credit: ICredit): Promise<ICredit> => {
+  try {
+    const response = await axios.post(`${baseUrl}/credits`, credit);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error en la solicitud:", error.response?.data);
+      throw new Error(
+        error.response?.data?.message || "Error al crear el crédito"
       );
     }
     throw new Error("Error desconocido");

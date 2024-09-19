@@ -25,8 +25,6 @@ const DetailModal: React.FC<DetailModalProps> = ({
     return null;
   }
 
-  console.log("detailData", detailData);
-
   const titleField: string =
     "text-[14px] text-[#101828] font-Roboto font-[500]";
 
