@@ -1,5 +1,7 @@
 import { Button, Fade } from "@mui/material";
 import Logo from "../assets/images/logo.svg";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 interface OptionButtonsProps {
   isLogin: boolean;
@@ -12,6 +14,7 @@ const OptionButtons = ({
   isOptionSelected,
   handleOptionChange,
 }: OptionButtonsProps) => {
+  const { setStepStatus } = useContext(AuthContext);
   return (
     <Fade in={!isOptionSelected}>
       <div className="flex flex-col justify-center items-center w-full h-[90vh]">
@@ -45,7 +48,10 @@ const OptionButtons = ({
           <Button
             fullWidth
             variant="contained"
-            onClick={() => handleOptionChange("formulario")}
+            onClick={() => {
+              setStepStatus(2);
+              handleOptionChange("formulario");
+            }}
             sx={{
               mx: 1,
               borderRadius: "8px",

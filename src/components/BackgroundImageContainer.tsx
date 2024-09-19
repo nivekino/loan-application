@@ -15,7 +15,7 @@ const BackgroundImageContainer = ({
         display: { xs: "none", md: "flex" },
         bgcolor: "#0D65FD",
         width: "100%",
-        height: "100%",
+        height: "100vh",
         backgroundImage: `url(${BackGroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
