@@ -19,7 +19,11 @@ const Navbar: React.FC = () => {
       >
         <Toolbar>
           <Box component="div" sx={{ flexGrow: 1 }}>
-            <img src={LogNav} alt="LogNav" className="pl-[1.4rem] lg:pl-[8.4rem]" />
+            <img
+              src={LogNav}
+              alt="LogNav"
+              className="pl-[1.4rem] lg:pl-[8.4rem]"
+            />
           </Box>
           <Box sx={{ display: "flex", gap: 2 }}>
             <IconButton

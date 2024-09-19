@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import DetailTable from "../components/DetailTable";
+import DetailCards from "../components/DetailCards";
 import { useAuth } from "../context/useAuth";
 import TableSkeleton from "../components/TableSkeleton";
+import CardSkeleton from "../components/CardSkeleton";
 import { getAllCredits } from "../services/Services";
 import MyPagination from "../components/CustomPagination";
 import ErrorMessage from "../components/ErrorMessage";
+import { useMediaQuery } from "@mui/material";
 
 interface User {
   _id: string;
@@ -22,6 +25,8 @@ const DashboardContainer: React.FC = () => {
   const [itemsPerPage] = useState(10);
   const { token } = useAuth();
   const tokenUser: string = token || "";
+
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +56,7 @@ const DashboardContainer: React.FC = () => {
   };
 
   if (loading) {
-    return <TableSkeleton />;
+    return isMobile ? <CardSkeleton /> : <TableSkeleton />;
   }
 
   if (error)
@@ -66,7 +71,12 @@ const DashboardContainer: React.FC = () => {
       <h1 className="font-Roboto text-[24px] font-[500] mb-6">
         Historial de registro
       </h1>
-      <DetailTable users={currentUsers} />
+
+      {isMobile ? (
+        <DetailCards users={currentUsers} />
+      ) : (
+        <DetailTable users={currentUsers} />
+      )}
 
       <div className="flex flex-row-reverse mt-5 w-full">
         <MyPagination

@@ -10,14 +10,14 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Roboto", sans-serif', // Set the global font
+    fontFamily: '"Roboto", sans-serif',
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          fontFamily: '"Roboto", sans-serif', // Apply the font to buttons
-          textTransform: "none", // Removes uppercase transformation
+          fontFamily: '"Roboto", sans-serif',
+          textTransform: "none",
         },
       },
     },
