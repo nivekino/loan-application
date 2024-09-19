@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import { getAllCredits } from "../services/Services";
 import DetailTable from "../components/DetailTable";
 import { useAuth } from "../context/useAuth";
+import TableSkeleton from "../components/TableSkeleton";
+import { getAllCredits } from "../services/Services";
+import MyPagination from "../components/CustomPagination";
+import ErrorMessage from "../components/ErrorMessage";
 
 interface User {
   _id: string;
@@ -15,12 +18,16 @@ const DashboardContainer: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const { token } = useAuth();
   const tokenUser: string = token || "";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         const response = await getAllCredits(tokenUser);
         setUsers(response);
       } catch (error) {
@@ -34,13 +41,40 @@ const DashboardContainer: React.FC = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div>Cargando...</div>;
-  if (error) return <div>{error}</div>;
+  const indexOfLastItem = page * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentUsers = users.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const handleChangePage = (_: unknown, value: number) => {
+    setPage(value);
+  };
+
+  if (loading) {
+    return <TableSkeleton />;
+  }
+
+  if (error)
+    return (
+      <>
+        <ErrorMessage message="Error al obtener la información" />
+      </>
+    );
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <DetailTable users={users} />
+    <div className="py-4 px-[3rem] lg:px-[10rem]">
+      <h1 className="font-Roboto text-[24px] font-[500] mb-6">
+        Historial de registro
+      </h1>
+      <DetailTable users={currentUsers} />
+
+      <div className="flex flex-row-reverse mt-5 w-full">
+        <MyPagination
+          page={page}
+          totalPages={totalPages}
+          handleChangePage={handleChangePage}
+        />
+      </div>
     </div>
   );
 };

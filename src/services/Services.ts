@@ -22,9 +22,13 @@ export const loginUser = async (data: {
 
 export const getAllCredits = async (token: string) => {
   try {
+    const limit: number = 100;
     const response = await axios.get(`${baseUrl}/credits`, {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+      params: {
+        limit: limit,
       },
     });
 

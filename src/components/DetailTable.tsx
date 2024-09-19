@@ -27,49 +27,57 @@ interface DetailTableProps {
 
 const DetailTable: React.FC<DetailTableProps> = ({ users }) => {
   const [open, setOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [detailData, setDetailData] = useState<UserDetail | null>(null);
   const { token } = useAuth();
   const tokenUser: string = token || "";
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const handleOpen = async (user: User) => {
-    setSelectedUser(user);
     setOpen(true);
 
     try {
       const response = await getCreditById(tokenUser, user._id);
       setDetailData(response);
     } catch (error) {
-      setError("Error fetching data");
       console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedUser(null);
     setDetailData(null);
   };
 
+  const headerCellStyles = {
+    color: "#667085",
+    fontFamily: "Roboto",
+    fontSize: "16px",
+    fontWeight: 600,
+  };
+
   return (
-    <div className="p-4">
-      <TableContainer className="shadow-md rounded-lg">
+    <div className="">
+      <TableContainer className="rounded-lg border border-[#e5e7eb]">
         <Table>
-          <TableHead className="bg-gray-200">
+          <TableHead className="bg-[#FCFCFD]">
             <TableRow>
-              <TableCell>Nombres y apellidos</TableCell>
-              <TableCell>Correo electrónico</TableCell>
-              <TableCell>Número telefónico</TableCell>
-              <TableCell>Acciones</TableCell>
+              <TableCell sx={headerCellStyles}>Nombres y apellidos</TableCell>
+              <TableCell sx={headerCellStyles}>Correo electrónico</TableCell>
+              <TableCell sx={headerCellStyles}>Número telefónico</TableCell>
+              <TableCell sx={headerCellStyles}>Acciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map((user) => (
-              <TableRow key={user._id}>
+              <TableRow
+                key={user._id}
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#F2F4FF",
+                    transition: "background-color 0.3s ease",
+                  },
+                  transition: "background-color 0.3s ease",
+                }}
+              >
                 <TableCell>
                   {user.nombres} {user.apellidos}
                 </TableCell>
