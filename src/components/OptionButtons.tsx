@@ -15,7 +15,11 @@ const OptionButtons = ({
   return (
     <Fade in={!isOptionSelected}>
       <div className="flex flex-col justify-center items-center w-full h-[90vh]">
-        <img src={Logo} alt="logo" className="w-[100px] h-[100px]" />
+        <img src={Logo} alt="logo" className="w-[100px] h-[60px]" />
+
+        <p className="font-Roboto text-[#8C7A7A] font-[400] text-[16px] text-center mb-4">
+          Selecciona una opción
+        </p>
 
         <div className="w-[70%] flex flex-col justify-center items-center">
           <Button
@@ -57,10 +61,6 @@ const OptionButtons = ({
           >
             Solicitar crédito
           </Button>
-
-          <p className="font-Roboto text-[#8C7A7A] font-[400] text-[16px] my-5 text-center">
-            Selecciona una opción
-          </p>
         </div>
       </div>
     </Fade>

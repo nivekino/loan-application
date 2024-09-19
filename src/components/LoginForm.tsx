@@ -110,10 +110,18 @@ const LoginForm = () => {
                   backgroundColor: "primary.dark",
                   boxShadow: "none",
                 },
+                "&.Mui-disabled": {
+                  backgroundColor: "primary.main",
+                  color: "#fff",
+                },
               }}
               disabled={loading}
             >
-              {loading ? <CircularProgress size={20} /> : "Ingresar"}
+              {loading ? (
+                <CircularProgress size={20} sx={{ color: "white" }} />
+              ) : (
+                "Ingresar"
+              )}
             </Button>
           </Form>
         )}
