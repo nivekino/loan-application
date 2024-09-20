@@ -2,13 +2,13 @@ import { Box } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import Logo from "../assets/images/logo.svg";
 import { CustomInput } from "./CustomInput";
-import { CustomInputMask } from "./customInputMask";
 import { CustomSelect } from "./CustomSelect";
 import { useState } from "react";
 import { ICredit } from "../interfaces/Icredit";
 import { createCredit } from "../services/Services";
 import { toast } from "react-toastify";
 import { validationSchemaCredit } from "../utils/validations";
+import { CustomInputMask } from "./customInputMask";
 
 const RegisterForm = () => {
   // const [loading, setLoading] = useState<boolean>(false);
