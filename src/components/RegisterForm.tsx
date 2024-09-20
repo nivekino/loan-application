@@ -8,7 +8,7 @@ import { ICredit } from "../interfaces/Icredit";
 import { createCredit } from "../services/Services";
 import { toast } from "react-toastify";
 import { validationSchemaCredit } from "../utils/validations";
-import { CustomInputMask } from "./customInputMask";
+import { CustomInputMask } from "./CustomInputMask";
 
 const RegisterForm = () => {
   // const [loading, setLoading] = useState<boolean>(false);
