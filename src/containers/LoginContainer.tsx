@@ -64,7 +64,15 @@ const LoginContainer: React.FC = () => {
   }, []);
 
   return (
-    <Box height={"100vh"}>
+    <Box
+      sx={{
+        height: {
+          xs: "auto",
+          sm: "100vh",
+          md: "100vh",
+        },
+      }}
+    >
       <Grid
         container
         height={"100vh"}
@@ -74,7 +82,14 @@ const LoginContainer: React.FC = () => {
           justifyContent: "center",
         }}
       >
-        <Grid item xs={12} md={isRegisterVisible ? 0 : 6}>
+        <Grid
+          item
+          xs={12}
+          md={isRegisterVisible ? 0 : 6}
+          sx={{
+            display: { xs: "none", md: "block" },
+          }}
+        >
           <Slide
             direction={"right"}
             in={showSlide}
@@ -101,11 +116,22 @@ const LoginContainer: React.FC = () => {
             backgroundPosition: "center",
             width: "100%",
             transition: "1s ease",
-            minHeight: "100vh",
+            height: {
+              xs: "auto",
+              sm: "100vh",
+              md: "100vh",
+            },
           }}
         >
-          <div className="bg-white rounded-[10px] h-[90vh] p-3 w-[90%] mx-auto lg:rounded-none lg:h-auto lg:p-0 lg:w-full">
-            <Fade in={showSlide} timeout={1000} unmountOnExit>
+          <div
+            className="bg-white rounded-[10px] h-auto md:h-[90vh] p-3 w-[90%] mx-auto lg:rounded-none lg:h-auto lg:p-0 lg:w-full"
+            style={{
+              overflow: "hidden",
+              transition: "all 0.6s ease-in-out",
+              minHeight: isOptionSelected ? "90vh" : "90vh",
+            }}
+          >
+            <Fade in={showSlide} timeout={500} unmountOnExit>
               <Box
                 sx={{
                   width: "100%",
@@ -114,7 +140,7 @@ const LoginContainer: React.FC = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  transition: "min-height 0.5s ease",
+                  transition: "all 0.6s ease-in-out",
                 }}
               >
                 <OptionButtons
@@ -125,20 +151,23 @@ const LoginContainer: React.FC = () => {
               </Box>
             </Fade>
 
-            <Fade in={isOptionSelected} timeout={1000} unmountOnExit>
+            <Fade in={isOptionSelected} timeout={500} unmountOnExit>
               <Box
                 sx={{
+                  display: isOptionSelected ? "block" : "none",
                   width: "100%",
                   height: "auto",
+                  transition: "all 0.6s ease-in-out",
                 }}
               >
-                <Fade in={isLogin} timeout={1000} unmountOnExit>
+                <Fade in={isLogin} timeout={500} unmountOnExit>
                   <Box
                     sx={{
                       width: "100%",
                       height: "auto",
                       display: isOptionSelected ? "block" : "none",
-                      transition: "min-height 0.5s ease",
+                      transition: "min-height 0.6s ease-in-out",
+                      minHeight: isLogin ? "50vh" : "30vh",
                     }}
                   >
                     <BackButton handleGoBack={handleGoBack} />
@@ -146,11 +175,13 @@ const LoginContainer: React.FC = () => {
                   </Box>
                 </Fade>
 
-                <Fade in={isRegisterVisible} timeout={1000} unmountOnExit>
+                <Fade in={isRegisterVisible} timeout={500} unmountOnExit>
                   <Box
                     sx={{
                       width: "100%",
                       height: "auto",
+                      transition: "min-height 0.6s ease-in-out",
+                      minHeight: isRegisterVisible ? "60vh" : "40vh",
                     }}
                   >
                     <BackButton handleGoBack={handleGoBack} />

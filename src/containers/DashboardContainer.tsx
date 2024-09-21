@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
+import { Grow, useMediaQuery } from "@mui/material";
 import DetailTable from "../components/DetailTable";
 import DetailCards from "../components/DetailCards";
+import NoDataMessage from "../components/NoDataMessage";
 import { useAuth } from "../context/useAuth";
 import TableSkeleton from "../components/TableSkeleton";
 import CardSkeleton from "../components/CardSkeleton";
 import { getAllCredits } from "../services/Services";
 import MyPagination from "../components/CustomPagination";
 import ErrorMessage from "../components/ErrorMessage";
-import { useMediaQuery } from "@mui/material";
 
 interface User {
   _id: string;
@@ -59,12 +60,25 @@ const DashboardContainer: React.FC = () => {
     return isMobile ? <CardSkeleton /> : <TableSkeleton />;
   }
 
-  if (error)
+  if (error) {
     return (
-      <>
-        <ErrorMessage message="Error al obtener la información" />
-      </>
+      <Grow in={!!error} timeout={1000}>
+        <div>
+          <ErrorMessage message="Error al obtener la información" />
+        </div>
+      </Grow>
     );
+  }
+
+  if (users.length === 0) {
+    return (
+      <Grow in={users.length === 0} timeout={1000}>
+        <div className="px-10">
+          <NoDataMessage />
+        </div>
+      </Grow>
+    );
+  }
 
   return (
     <div className="py-4 px-[3rem] lg:px-[10rem]">
@@ -72,11 +86,15 @@ const DashboardContainer: React.FC = () => {
         Historial de registro
       </h1>
 
-      {isMobile ? (
-        <DetailCards users={currentUsers} />
-      ) : (
-        <DetailTable users={currentUsers} />
-      )}
+      <Grow in={!loading} timeout={1000}>
+        <div>
+          {isMobile ? (
+            <DetailCards users={currentUsers} />
+          ) : (
+            <DetailTable users={currentUsers} />
+          )}
+        </div>
+      </Grow>
 
       <div className="flex flex-row-reverse mt-5 w-full">
         <MyPagination
