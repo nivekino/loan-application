@@ -17,11 +17,12 @@ import SelfieCapture from "./SelfieCapture";
 const RegisterForm = () => {
   // const [loading, setLoading] = useState<boolean>(false);
   const [mask, setMask] = useState<string>("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedDepartamento, setSelectedDepartamento] = useState<string>("");
   const [filteredMunicipios, setFilteredMunicipios] = useState<
     { label: string; value: string }[]
   >([]);
+
+  console.log(selectedDepartamento);
 
   const handleDepartamentoChange = (event: SelectChangeEvent<unknown>) => {
     const selectedValue = event.target.value as string;
