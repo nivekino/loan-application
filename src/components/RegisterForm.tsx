@@ -459,7 +459,7 @@ const RegisterForm = () => {
                       color: "#1D2939",
                       boxShadow: "none",
                       "&:hover": {
-                        backgroundColor: "primary.dark",
+                        backgroundColor: "#dde0e4",
                         boxShadow: "none",
                       },
                       "&.Mui-disabled": {
