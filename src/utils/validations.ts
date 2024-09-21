@@ -50,4 +50,19 @@ export const validationSchemaCredit = Yup.object({
         return Yup.string().required("Número de identificación es requerido");
     }
   }),
+  numeroTelefono: Yup.string()
+    .required("Número de teléfono es un campo requerido")
+    .matches(/^\d{11}$/, "El número de teléfono debe tener 11 dígitos"),
+  departamento: Yup.string().required("Departamento es un campo requerido"),
+  municipio: Yup.string().required("Municipio es un campo requerido"),
+  direccion: Yup.string()
+    .required("Dirección es un campo requerido")
+    .min(5, "La dirección debe tener al menos 5 caracteres")
+    .max(100, "La dirección no puede exceder los 100 caracteres"),
+  ingresosMensuales: Yup.number()
+    .required("Ingresos mensuales es un campo requerido")
+    .min(100, "Ingresos mensuales deben ser al menos 100")
+    .max(1000000, "Ingresos mensuales no pueden exceder de 1,000,000"),
+  //selfie: Yup.mixed().required("Selfie is required"),
+  documentoIdentidad: Yup.array().min(1, "At least one document is required"),
 });

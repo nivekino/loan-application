@@ -69,9 +69,13 @@ export const getCreditById = async (token: string, id: string) => {
   }
 };
 
-export const createCredit = async (credit: ICredit): Promise<ICredit> => {
+export const createCredit = async (formData: FormData): Promise<ICredit> => {
   try {
-    const response = await axios.post(`${baseUrl}/credits`, credit);
+    const response = await axios.post(`${baseUrl}/credits`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

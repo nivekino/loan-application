@@ -4,6 +4,33 @@
 @tailwind components;
 @tailwind utilities;
 
+.react-tel-input .flag-dropdown {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 6px;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.react-tel-input .selected-flag:hover,
+.react-tel-input .selected-flag:focus {
+  background-color: transparent;
+}
+
+.react-tel-input .flag-dropdown.open .selected-flag {
+  background: transparent;
+  border-radius: 0;
+}
+
+.react-tel-input .flag-dropdown.open {
+  z-index: 2;
+  background: transparent;
+  border-radius: 0;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

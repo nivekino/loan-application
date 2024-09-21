@@ -165,7 +165,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         </Select>
 
         {helperText && (
-          <FormHelperText sx={{ color: colorHelperText }}>
+          <FormHelperText sx={{ color: colorHelperText, marginLeft: "12px" }}>
             {helperText}
           </FormHelperText>
         )}

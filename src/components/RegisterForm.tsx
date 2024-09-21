@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, SelectChangeEvent } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import Logo from "../assets/images/logo.svg";
 import { CustomInput } from "./CustomInput";
@@ -9,10 +9,25 @@ import { createCredit } from "../services/Services";
 import { toast } from "react-toastify";
 import { validationSchemaCredit } from "../utils/validations";
 import { CustomInputMask } from "./CustomInputMask";
+import { CustomPhoneInput } from "./CustomPhoneInput";
+import { departamentos, municipios } from "../utils/dataContry";
+import FileUpload from "./FileUpload";
+import SelfieCapture from "./SelfieCapture";
 
 const RegisterForm = () => {
   // const [loading, setLoading] = useState<boolean>(false);
   const [mask, setMask] = useState<string>("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedDepartamento, setSelectedDepartamento] = useState<string>("");
+  const [filteredMunicipios, setFilteredMunicipios] = useState<
+    { label: string; value: string }[]
+  >([]);
+
+  const handleDepartamentoChange = (event: SelectChangeEvent<unknown>) => {
+    const selectedValue = event.target.value as string;
+    setSelectedDepartamento(selectedValue);
+    setFilteredMunicipios(municipios[selectedValue] || []);
+  };
 
   const errorToastId: string = "login-error";
   const titleTitle: string = "text-Roboto text-[24px] font-[500]";
@@ -49,18 +64,33 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = async (values: ICredit) => {
+    const formData = new FormData();
+
+    // Append all the text fields to FormData
+    formData.append("nombres", values.nombres);
+    formData.append("apellidos", values.apellidos);
+    formData.append("correoElectronico", values.correoElectronico);
+    formData.append("numeroTelefono", values.numeroTelefono);
+    formData.append("tipoIdentificacion", values.tipoIdentificacion);
+    formData.append("numeroIdentificacion", values.numeroIdentificacion);
+    formData.append("departamento", values.departamento);
+    formData.append("municipio", values.municipio);
+    formData.append("direccion", values.direccion);
+    formData.append("ingresosMensuales", values.ingresosMensuales);
+    formData.append("selfie", values.selfie);
+    values.documentoIdentidad.forEach((file) => {
+      formData.append("documentoIdentidad", file);
+    });
+
     try {
-      // setLoading(true);
-      const response = await createCredit(values);
+      console.log("Form Data: ", formData);
+      const response = await createCredit(formData);
       console.log("response", response);
       toast.dismiss(errorToastId);
       toast.success("Registro exitoso", {
         position: "bottom-right",
       });
-      // setLoading(false);
     } catch (error: unknown) {
-      // setLoading(false);
-
       if (!toast.isActive(errorToastId)) {
         toast.error(`${error}`, {
           toastId: errorToastId,
@@ -148,6 +178,27 @@ const RegisterForm = () => {
             />
 
             <Field
+              as={CustomPhoneInput}
+              id="numeroTelefono"
+              name="numeroTelefono"
+              label="Número de teléfono"
+              value={values.numeroTelefono}
+              onChange={(value: string) =>
+                setFieldValue("numeroTelefono", value)
+              }
+              onBlur={handleBlur}
+              error={touched.numeroTelefono && Boolean(errors.numeroTelefono)}
+              helperText={
+                touched.numeroTelefono ? errors.numeroTelefono : undefined
+              }
+              borderBottomColor="#98A2B3"
+              borderBottomColorHover="#195DFA"
+              borderBottomColorAfter="#195DFA"
+              colorLabel="#101828"
+              colorHelperText="#B32318"
+            />
+
+            <Field
               as={CustomSelect}
               id="tipoIdentificacion"
               name="tipoIdentificacion"
@@ -205,6 +256,97 @@ const RegisterForm = () => {
               borderBottomColorAfter="#195DFA"
               colorLabel="#101828"
               colorHelperText="#B32318"
+            />
+
+            <Field
+              as={CustomSelect}
+              id="departamento"
+              name="departamento"
+              label="Departamento"
+              value={values.departamento}
+              onChange={(e: SelectChangeEvent<unknown>) => {
+                setFieldValue("departamento", e.target.value);
+                handleDepartamentoChange(e);
+              }}
+              onBlur={handleBlur}
+              error={touched.departamento && Boolean(errors.departamento)}
+              helperText={
+                touched.departamento ? errors.departamento : undefined
+              }
+              options={departamentos}
+              borderBottomColor="#98A2B3"
+              borderBottomColorHover="#195DFA"
+              borderBottomColorAfter="#195DFA"
+              colorLabel="#101828"
+              colorHelperText="#B32318"
+            />
+
+            <Field
+              as={CustomSelect}
+              id="municipio"
+              name="municipio"
+              label="Municipio"
+              value={values.municipio}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.municipio && Boolean(errors.municipio)}
+              helperText={touched.municipio ? errors.municipio : undefined}
+              options={filteredMunicipios}
+              borderBottomColor="#98A2B3"
+              borderBottomColorHover="#195DFA"
+              borderBottomColorAfter="#195DFA"
+              colorLabel="#101828"
+              colorHelperText="#B32318"
+              placeholder="Seleccionar municipio"
+            />
+
+            <Field
+              as={CustomInput}
+              id="direccion"
+              name="direccion"
+              label="Dirección"
+              value={values.direccion}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.direccion && Boolean(errors.direccion)}
+              helperText={touched.direccion ? errors.direccion : undefined}
+              borderBottomColor="#98A2B3"
+              borderBottomColorHover="#195DFA"
+              borderBottomColorAfter="#195DFA"
+              colorLabel="#101828"
+              colorHelperText="#B32318"
+              placeholder="Ingresar dirección"
+            />
+
+            <Field
+              as={CustomInput}
+              id="ingresosMensuales"
+              name="ingresosMensuales"
+              label="Ingresos mensuales"
+              type="number"
+              value={values.ingresosMensuales}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={
+                touched.ingresosMensuales && Boolean(errors.ingresosMensuales)
+              }
+              helperText={
+                touched.ingresosMensuales ? errors.ingresosMensuales : undefined
+              }
+              borderBottomColor="#98A2B3"
+              borderBottomColorHover="#195DFA"
+              borderBottomColorAfter="#195DFA"
+              colorLabel="#101828"
+              colorHelperText="#B32318"
+              placeholder="$0.00"
+            />
+
+            <FileUpload setFieldValue={setFieldValue} />
+
+            <Field
+              component={SelfieCapture}
+              name="selfie"
+              setFieldValue={setFieldValue}
             />
 
             <button type="submit" className="btn-submit">
