@@ -78,7 +78,6 @@ const LoginForm = () => {
               colorHelperText="#B32318"
               placeholder="ejemplo@gmail.com"
             />
-
             <CustomInput
               id="password"
               name="password"
@@ -96,7 +95,6 @@ const LoginForm = () => {
               colorHelperText="#B32318"
               placeholder="Contraseña"
             />
-
             <Button
               fullWidth
               type="submit"

@@ -63,6 +63,6 @@ export const validationSchemaCredit = Yup.object({
     .required("Ingresos mensuales es un campo requerido")
     .min(100, "Ingresos mensuales deben ser al menos 100")
     .max(1000000, "Ingresos mensuales no pueden exceder de 1,000,000"),
+  documentoIdentidad: Yup.array().min(1, "*Debes subir al menos un documento"),
   //selfie: Yup.mixed().required("Selfie is required"),
-  documentoIdentidad: Yup.array().min(1, "At least one document is required"),
 });

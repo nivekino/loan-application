@@ -12,8 +12,8 @@ interface CustomPhoneInputProps {
   colorLabelHover?: string;
   colorLabelFocused?: string;
   colorHelperText?: string;
-  onChange: (value: string) => void; // Cambiado a `onChange` compatible con Formik
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void; // Agregado `onBlur` para manejar el desenfoque
+  onChange: (value: string) => void;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const CustomPhoneInput = ({
@@ -26,7 +26,7 @@ export const CustomPhoneInput = ({
   colorLabelHover = "#195DFA",
   colorLabel = "#B32318",
   onChange,
-  onBlur, // Agregado para manejar el desenfoque
+  onBlur,
 }: CustomPhoneInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -64,7 +64,7 @@ export const CustomPhoneInput = ({
         onFocus={() => setIsFocused(true)}
         onBlur={(e) => {
           setIsFocused(false);
-          onBlur(e); // Invocamos el onBlur de Formik
+          onBlur(e);
         }}
         inputStyle={{
           width: "100%",
@@ -74,7 +74,7 @@ export const CustomPhoneInput = ({
           borderRadius: "8px",
           height: "45px",
           fontSize: "14px",
-          transition: "border 0.3s", // Add smooth transition for hover effect
+          transition: "border 0.3s",
         }}
         dropdownStyle={{
           borderRadius: "8px",

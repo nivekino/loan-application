@@ -37,7 +37,7 @@ const LoginContainer: React.FC = () => {
 
     handleLoginAnimation();
   }, [stepStatus]);
-  
+
   useEffect(() => {
     if (stepStatus === 1) {
       const timer = setTimeout(() => {
